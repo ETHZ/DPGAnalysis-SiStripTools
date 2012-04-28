@@ -303,7 +303,7 @@ APVShotsAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 	 }
 	 LogDebug("FED channels") << thelFEDId << " " << lChannelId ;
 
-         const std::vector<const FedChannelConnection> & conns = _detCabling->getConnections( det );
+         const std::vector<FedChannelConnection> & conns = _detCabling->getConnections( det );
 
 	 if (!(conns.size())) continue;
 	 uint16_t lFedId = 0;
