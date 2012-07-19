@@ -303,17 +303,16 @@ APVShotsAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 	 }
 	 LogDebug("FED channels") << thelFEDId << " " << lChannelId ;
 
-         const std::vector<const FedChannelConnection *> & conns = _detCabling->getConnections( det );
+         const std::vector<FedChannelConnection> & conns = _detCabling->getConnections( det );
 
 	 if (!(conns.size())) continue;
 	 uint16_t lFedId = 0;
 	 for (uint32_t ch = 0; ch<conns.size(); ch++) {
-	   if(conns[ch] && conns[ch]->isConnected()) {
-	     LogDebug("Dump") << *(conns[ch]);
+	   if( conns[ch].isConnected()) {
 	     LogDebug("ReadyForFEDid") << "Ready for FED id " << ch;
-	     lFedId = conns[ch]->fedId();
+	     lFedId = conns[ch].fedId();
 	     LogDebug("FEDid") << "obtained FED id " << ch << " " << lFedId;
-	     //uint16_t lFedCh = conns[ch]->fedCh();
+	     //uint16_t lFedCh = conns[ch].fedCh();
 	     
 	     if (lFedId < sistrip::FED_ID_MIN || lFedId > sistrip::FED_ID_MAX){
 	       edm::LogWarning("InvalidFEDid") << lFedId << " for detid " << det << " connection " << ch;
